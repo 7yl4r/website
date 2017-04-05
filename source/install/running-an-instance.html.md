@@ -17,7 +17,7 @@ Log in to the Openstack dashboard at <http://CONTROL_NODE/dashboard> with the us
 
 ## Step 2: Enable SSH on your default security group
 
-Once logged in to the OpenStack dashboard, click the **Project** tab in the left-side navigation menu, and then click **Access & Security** under the heading **Compute**.
+Once logged in to the OpenStack dashboard, click the **Project** tab in the left-side navigation menu, and then click **Security Groups** under the heading **Network**.
 
 [//]: #  "![](Runninganinstance-step2-1.png "Running an instance - step2-1.png")"
 
@@ -27,7 +27,7 @@ Under the **Security Groups** heading, click the **Manage Rules** button for the
 
 ## Step 3: Create or import a key pair
 
-In the left-side navigation menu, click **Access & Security** under the heading **Compute**. In the main portion of the screen, click the tab labeled **Key Pairs**, and choose either to **Create Key Pair** or **Import Key Pair**. The **Create Key Pair** dialog will prompt you to supply a key pair name before downloading a private key to your client.
+In the left-side navigation menu, click **Key Pairs** under the heading **Compute**. Choose either to **Create Key Pair** or **Import Key Pair**. The **Create Key Pair** dialog will prompt you to supply a key pair name before downloading a private key to your client.
 
 [//]: # "![](Runninganinstance-step3-1.png "Running an instance - step3-1.png")"
 
@@ -37,17 +37,28 @@ The **Import Key Pair** option will prompt you to provide a name and a public ke
 
 ## Step 4: Add an image
 
-In the left-side navigation menu, click **Images** under the heading **Compute**. Click the **Create Image** button, located in the upper-right portion of the screen. In the resulting dialog box, enter **Fedora22** in the **Image Name** field, **[https://download.fedoraproject.org/pub/fedora/linux/releases/24/CloudImages/x86_64/images/Fedora-Cloud-Base-24-1.2.x86_64.qcow2](https://download.fedoraproject.org/pub/fedora/linux/releases/24/CloudImages/x86_64/images/Fedora-Cloud-Base-24-1.2.x86_64.qcow2)** in the **Image Location** field, choose **QCOW2 - QUEMU Emulator** from the **Format** drop-down menu, leave the **Minimum Disk (GB)** and **Minimum RAM (MB)** fields blank, check the **Private** box, and click the **Create Image** button.
+NOTE: this step can be skipped if you wish to use the included cirros image.
+
+Download a pre-built image of your choice from [image resources](https://www.rdoproject.org/resources/image-resources/). For this example we will proceed with the Fedora22 image located [here](https://download.fedoraproject.org/pub/fedora/linux/releases/24/CloudImages/x86_64/images/Fedora-Cloud-Base-24-1.2.x86_64.qcow2).
+
+In the left-side navigation menu, click **Images** under the heading **Compute**. Click the **Create Image** button, located in the upper-right portion of the screen. In the resulting dialog box, enter the following:
+
+* **Fedora22** in the **Image Name** field, 
+* select the .qcow2 image previously downloaded in the **File** field, 
+* choose **QCOW2 - QUEMU Emulator** from the **Format** drop-down menu, 
+* leave the fields under **Image Requirements** blank, 
+* select the **Private** button under Image Sharing, 
+* leave the **Protected** button set to "no"
+
+then click the **Create Image** button.
 
 **Note:** Under certain circumstances, adding an image may not be possbile due to a known issue: [https://bugs.launchpad.net/horizon/+bug/1632383](https://bugs.launchpad.net/horizon/+bug/1632383).
 
 [//]: # "![](Runninganinstance-step4.png "Running an instance - step4.png")"
 
-For a collection of links to alternative cloud-ready images, check out [image resources](/resources/image-resources/).
-
 ## Step 5: Launch the instance
 
-In the main portion of the screen, under the **Images** heading, click the **Launch Instance** button for the **Fedora22** image. In the resulting dialog, provide a name in the **Instance Name** field and click the **Flavor** tab. There, click the **+** button next to **m1.small**. Click **Launch Instance**.
+In the main portion of the screen, under the **Compute/Images** heading, click the **Launch** button for the **Fedora22** image. In the resulting dialog, provide a name in the **Instance Name** field and click the **Flavor** tab. There, click the **+** button next to **m1.small**. Click **Launch Instance**.
 
 [//]: # "![](Runninganinstance-step5-1.png "Running an instance - step5-1.png")"
 
@@ -70,3 +81,5 @@ For additional details, please read [how to set a floating IP range](/networking
 Using the key pair file from step 3, connect through SSH to the running VM, using its floating IP address:
 
     $ ssh -i my_key_pair.pem fedora@floating_ip_address
+
+NOTE: the default username for a cirros image is "cirros"
